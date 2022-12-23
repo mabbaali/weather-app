@@ -18,19 +18,19 @@ app.post('/', (req, res)=>{
         response.on('data', (data)=>{
         var weatherdata = JSON.parse(data)
 
-        console.log(weatherdata)
         var description = weatherdata.weather[0].description
         var temp = weatherdata.main.temp
-        console.log(temp)
-        console.log(description)
+        var icon = weatherdata.weather[0].icon
+        const imgLink = 'https://openweathermap.org/img/wn/'+icon+'@2x.png'
+    
         res.write(`<p>Description: ${description}</p>`)
         res.write(`<p>Tempreture: ${temp}</p>`)
+        res.write(`<img src='${imgLink}'>`)
         res.send()
         })
        
     })
     
-    console.log(lat,lon)
 })
 
 app.listen(process.env.PORT || 3005, ()=>{
